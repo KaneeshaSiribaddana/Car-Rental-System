@@ -1,4 +1,5 @@
-<footer class="bg-dark text-white mt-5 py-1">
+<div class="position-relative mt-5">
+    <footer class="bg-dark text-white mt-5 py-1 bottom-0">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-4">
@@ -27,3 +28,4 @@
             </div>
         </div>
     </footer>
+</div>

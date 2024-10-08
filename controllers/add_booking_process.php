@@ -32,7 +32,7 @@ if (empty($vehicleId) || empty($startDate) || empty($endDate) || empty($location
 }
 
 // Create a new Booking object
-$booking = new Booking($vehicleId, $startDate, $endDate, $location, $withDriver, $userId, 'pending');
+$booking = new Booking($vehicleId, $startDate, $endDate, $location, $withDriver, $userId, 'pending',$amount);
 
 // Add the booking to the database
 $result = $booking->addBooking();

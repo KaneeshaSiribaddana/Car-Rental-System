@@ -14,11 +14,11 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Successful</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
-            background-color: #FAF3E0; /* Light background color */
+            background-color: #666869;
         }
         .message-container {
             margin-top: 100px;
@@ -32,7 +32,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
 <?php include 'header.php'?>
-<div class="container message-container">
+<div class="container message-container"style="min-height:50vh">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
