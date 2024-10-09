@@ -1,5 +1,10 @@
 <?php
-// Include the Database class
+
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
+    header("Location: login.php");
+    exit();
+}
 include 'models/config.php';
 
 // Fetch drivers data
@@ -34,8 +39,8 @@ $drivers = Database::search($query);
                 <input type="text" id="searchBar" class="form-control mb-3" placeholder="Search drivers...">
 
                 <!-- Drivers Table -->
-                <table class="table table-bordered mb-5">
-                    <thead>
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
                         <tr>
                             <th>First Name</th>
                             <th>Last Name</th>

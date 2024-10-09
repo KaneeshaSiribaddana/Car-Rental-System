@@ -1,4 +1,4 @@
-<div class="position-relative mt-5">
+<div class="position-relative">
     <footer class="bg-dark text-white mt-5 py-1 bottom-0">
         <div class="container">
             <div class="row text-center">

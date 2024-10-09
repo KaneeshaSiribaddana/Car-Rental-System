@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
+    header("Location: login.php");
+    exit();
+}
 require_once '../models/Vehicle.php';
 
 // Initialize Database connection (optional, since the Database methods call it)

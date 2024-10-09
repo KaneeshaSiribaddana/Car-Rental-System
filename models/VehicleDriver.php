@@ -62,5 +62,50 @@ class VehicleDriver
         }
         return false; // Return false if login fails
     }
+    public static function getProfile($driverId)
+    {
+        $query = "SELECT first_name, last_name, email, phone, dob, emergency_contact_name, emergency_contact_phone, driving_experience 
+                  FROM vehicle_drivers WHERE id = '".$driverId."'";
+        $result = Database::search($query);
+
+        if ($result && $result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        return null;
+    }
+    public function updateProfile($userId, $firstName, $lastName, $email, $phone, $password, $dob, $emergencyContactName, $emergencyContactPhone, $drivingExperience)
+{
+    // Hash password if it's being changed
+    if (!empty($password)) {
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    // Prepare the SQL update query
+    $query = "UPDATE vehicle_drivers SET 
+        first_name='$firstName', 
+        last_name='$lastName', 
+        email='$email', 
+        phone='$phone', 
+        dob='$dob', 
+        emergency_contact_name='$emergencyContactName', 
+        emergency_contact_phone='$emergencyContactPhone', 
+        driving_experience='$drivingExperience'";
+
+    // Only update the password if it's provided
+    if (!empty($password)) {
+        $query .= ", password='$passwordHash'";
+    }
+
+    $query .= " WHERE id='$userId'";
+
+    // Execute the update query
+    return Database::iud($query);
+}
+public static function deleteAccount($userId) {
+    // Delete the vehicle driver record
+    $query = "DELETE FROM vehicle_drivers WHERE id = '$userId'";
+    return Database::iud($query);
+}
+
 }
 ?>

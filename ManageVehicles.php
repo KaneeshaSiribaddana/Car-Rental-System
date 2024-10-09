@@ -59,8 +59,8 @@ $vehicles = Database::search($query); // Fetch vehicles
                 <input type="text" id="searchBar" class="form-control mb-3" placeholder="Search vehicles...">
 
                 <!-- Vehicle Table -->
-                <table class="table table-bordered">
-                    <thead>
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
                         <tr>
                             <th>Make</th>
                             <th>Model</th>

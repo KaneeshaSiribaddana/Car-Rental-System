@@ -13,12 +13,12 @@ $owner_id = $_SESSION['user_id'];
 
 
 // Fetch total bookings
-$totalBookingsQuery = "SELECT COUNT(*) AS total_bookings FROM bookings WHERE vehicle_id IN (SELECT id FROM vehicles WHERE owner = $owner_id)";
+$totalBookingsQuery = "SELECT COUNT(*) AS total_bookings FROM bookings";
 $totalBookingsResult = Database::search($totalBookingsQuery);
 $totalBookings = $totalBookingsResult->fetch_assoc()['total_bookings'];
 
 // Fetch total earnings (owner's share before platform charges)
-$totalEarningsQuery = "SELECT SUM(amount) AS total_earnings FROM bookings WHERE status = 'approved' AND vehicle_id IN (SELECT id FROM vehicles WHERE owner = $owner_id)";
+$totalEarningsQuery = "SELECT SUM(amount) AS total_earnings FROM payments WHERE status = 'Paid'";
 $totalEarningsResult = Database::search($totalEarningsQuery);
 $totalEarnings = $totalEarningsResult->fetch_assoc()['total_earnings'] ?? 0;
 
@@ -27,13 +27,13 @@ $platformCharge = 0.05;
 $earningsAfterCharge = $totalEarnings - ($totalEarnings * $platformCharge);
 
 // Fetch booking statuses
-$pendingBookingsQuery = "SELECT COUNT(*) AS pending_bookings FROM bookings WHERE status = 'pending' AND vehicle_id IN (SELECT id FROM vehicles WHERE owner = $owner_id)";
-$approvedBookingsQuery = "SELECT COUNT(*) AS approved_bookings FROM bookings WHERE status = 'approved' AND vehicle_id IN (SELECT id FROM vehicles WHERE owner = $owner_id)";
-$rejectedBookingsQuery = "SELECT COUNT(*) AS rejected_bookings FROM bookings WHERE status = 'rejected' AND vehicle_id IN (SELECT id FROM vehicles WHERE owner = $owner_id)";
+$totalCustomersQuery = "SELECT COUNT(*) AS total_customers FROM customers";
+$totalDriversQuery = "SELECT COUNT(*) AS total_drivers FROM vehicle_drivers ";
+$totalOwnersQuery = "SELECT COUNT(*) AS total_owners FROM vehicle_owners";
 
-$pendingBookings = Database::search($pendingBookingsQuery)->fetch_assoc()['pending_bookings'];
-$approvedBookings = Database::search($approvedBookingsQuery)->fetch_assoc()['approved_bookings'];
-$rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rejected_bookings'];
+$totalCustomers = Database::search($totalCustomersQuery)->fetch_assoc()['total_customers'];
+$totalDrivers = Database::search($totalDriversQuery)->fetch_assoc()['total_drivers'];
+$totalOwners = Database::search($totalOwnersQuery)->fetch_assoc()['total_owners'];
 
 ?>
 
@@ -61,12 +61,12 @@ $rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rej
     <?php include 'header.php' ?>
     <div class="d-flex wrapper">
         <div>
-            <?php include 'sidebar.php' ?>
+            <?php include 'admin_sidebar.php' ?>
         </div>
 
         <div class="content  col-10 mb-5 mt-5">
-            <div class="container my-5">
-                <h2 class="mb-4 text-center">Owner Dashboard</h2>
+            <div class="container my-3">
+                <h2 class="mb-4 text-center">Admin Dashboard</h2>
                 <div class="row g-4">
 
                     <!-- Total Earnings Card -->
@@ -74,8 +74,7 @@ $rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rej
                         <div class="card dashboard-card text-white bg-primary">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-dollar-sign"></i> Total Earnings</h5>
-                                <p class="card-text">Rs <?= number_format($earningsAfterCharge, 2) ?></p>
-                                <p class="small">Total before charges: Rs <?= number_format($totalEarnings, 2) ?></p>
+                                <p class="card-text">Rs <?= number_format($totalEarnings, 2) ?></p>
                                 <a href="vehicle-owner-payments.php" class="btn btn-light mt-3">Go to Payment</a>
                             </div>
                         </div>
@@ -98,8 +97,8 @@ $rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rej
                             <div class="col-md-6">
                                 <div class="card dashboard-card text-white bg-warning">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-hourglass-half"></i> Pending Bookings</h5>
-                                        <p class="card-text"><?= $pendingBookings ?></p>
+                                        <h5 class="card-title"><i class="fas fa-hourglass-half"></i> Total Customers</h5>
+                                        <p class="card-text"><?= $totalCustomers ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -108,8 +107,8 @@ $rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rej
                             <div class="col-md-6">
                                 <div class="card dashboard-card text-white bg-info">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-check-circle"></i> Approved Bookings</h5>
-                                        <p class="card-text"><?= $approvedBookings ?></p>
+                                        <h5 class="card-title"><i class="fas fa-check-circle"></i> Total Vehicle Owners</h5>
+                                        <p class="card-text"><?= $totalOwners ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -118,8 +117,8 @@ $rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rej
                             <div class="col-md-6">
                                 <div class="card dashboard-card text-white bg-danger">
                                     <div class="card-body">
-                                        <h5 class="card-title"><i class="fas fa-times-circle"></i> Rejected Bookings</h5>
-                                        <p class="card-text"><?= $rejectedBookings ?></p>
+                                        <h5 class="card-title"><i class="fas fa-times-circle"></i> Total Vehicle Drivers</h5>
+                                        <p class="card-text"><?= $totalDrivers ?></p>
                                     </div>
                                 </div>
                             </div>

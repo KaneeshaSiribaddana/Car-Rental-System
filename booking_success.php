@@ -39,7 +39,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="card-body">
                     <i class="fas fa-check-circle icon"></i>
                     <h3 class="mt-3">Booking Successful!</h3>
-                    <p>Your booking has been successfully created. Please check the status of your booking later on your <a href="customer-bookings.html">My Bookings</a> page.</p>
+                    <p>Your booking has been successfully created. Please check the status of your booking later on your <a href="customer-bookings.php">My Bookings</a> page.</p>
                     <a href="index.php" class="btn btn-primary">Go to Home</a>
                 </div>
             </div>

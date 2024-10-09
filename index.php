@@ -11,7 +11,7 @@
         /* Custom Styling for the Hero Section */
         .hero {
             background: url('https://advertising.expedia.com/wp-content/uploads/2020/08/Car-Hero_1920x800.jpg') no-repeat center center/cover;
-            min-height: 60vh;
+            min-height: 70vh;
             color: white;
             display: flex;
             justify-content: center;
@@ -70,15 +70,16 @@
     </style>
 </head>
 
-<body>
+<body onload="alert('<?php echo $_SESSION['user_id']; ?>')">
+
     <?php
     include 'header.php'
     ?>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero mt-5">
         <div class="hero-overlay"></div>
-        <div class="container hero-content">
+        <div class="container hero-content pt-5">
             <h1 class="display-4">Find Your Perfect Vehicle</h1>
             <p class="lead">Choose from a wide range of vehicles to rent for any occasion.</p>
 
@@ -96,31 +97,11 @@
                                 <input type="date" id="endDate" class="form-control" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn filter-button btn-lg"><i class="fas fa-search"></i> Check Availability</button>
+                        <button type="submit" class="btn bg-primary text-light btn-lg">
+                            <i class="fas fa-search"></i> Check Available Vehicles
+                        </button>
                     </form>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Vehicles Section -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Our Top Vehicles</h2>
-            <div class="row" id="vehicle-list">
-                <!-- Cards for vehicles -->
-                <!-- Example card -->
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="https://source.unsplash.com/400x300/?car1" class="card-img-top" alt="Car">
-                        <div class="card-body">
-                            <h5 class="card-title">Luxury Sedan</h5>
-                            <p class="card-text">A comfortable and stylish sedan for all your needs.</p>
-                            <button class="btn btn-primary"><i class="fas fa-car"></i> Rent Now</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Repeat similar blocks for other vehicles -->
             </div>
         </div>
     </section>
@@ -172,6 +153,18 @@
                 vehicleList.innerHTML += vehicleCard;
             });
         }
+    </script>
+    <script>
+        document.getElementById('vehicleFilterForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the form from submitting the traditional way
+
+            // Get the start date and end date values
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            // Redirect to car-booking.php with the start date and end date as URL parameters
+            window.location.href = `car-booking.php?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`;
+        });
     </script>
 </body>
 

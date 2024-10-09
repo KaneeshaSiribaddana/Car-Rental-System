@@ -61,7 +61,7 @@ $rejectedBookings = Database::search($rejectedBookingsQuery)->fetch_assoc()['rej
     <?php include 'header.php' ?>
     <div class="d-flex wrapper">
         <div>
-            <?php include 'sidebar.php' ?>
+            <?php include 'admin_sidebar.php' ?>
         </div>
 
         <div class="content  col-10 mb-5 mt-5">

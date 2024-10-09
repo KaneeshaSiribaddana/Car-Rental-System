@@ -70,15 +70,47 @@ class Vehicle
     // Fetch all vehicles
     public function getAllVehicles()
     {
-        $query = "SELECT * FROM vehicles";
+        // Query to select vehicles and their associated images
+        $query = "
+        SELECT v.*, vi.image_path 
+        FROM vehicles v
+        LEFT JOIN vehicle_images vi 
+        ON v.id = vi.vehicle_id
+    ";
+
+        // Execute the query
         $result = Database::search($query);
 
+        // Check for errors
         if (!$result) {
             die("Query failed: " . Database::$connection->error);
         }
 
-        return $result->fetch_all(MYSQLI_ASSOC);
+        // Fetch all results
+        $vehicles = [];
+        while ($row = $result->fetch_assoc()) {
+            // Check if vehicle ID already exists in the array
+            if (!isset($vehicles[$row['id']])) {
+                // If not, initialize the vehicle entry with its details
+                $vehicles[$row['id']] = [
+                    'id' => $row['id'],
+                    'make' => $row['make'],
+                    'model' => $row['model'],
+                    'price' => $row['price'],
+                    'images' => []
+                ];
+            }
+
+            // Append the image if it exists
+            if (!empty($row['image_path'])) {
+                $vehicles[$row['id']]['images'][] = $row['image_path'];
+            }
+        }
+
+        // Return the array of vehicles with their associated images
+        return array_values($vehicles);
     }
+
 
     // Fetch vehicle by ID
     public static function getVehicleById($vehicleId)
@@ -114,6 +146,59 @@ class Vehicle
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+
+    public function getAvailableVehicles($startDate, $endDate)
+    {
+        // Query to select available vehicles and their associated images
+        $query = "
+    SELECT v.*, vi.image_path 
+    FROM vehicles v
+    LEFT JOIN vehicle_images vi 
+    ON v.id = vi.vehicle_id
+    WHERE v.id NOT IN (
+        SELECT vehicle_id 
+        FROM bookings 
+        WHERE (start_date <= '$endDate' AND end_date >= '$startDate') 
+        OR (start_date <= '$startDate' AND end_date >= '$endDate')
+    )
+    ";
+
+        // Execute the query using the Database class
+        $result = Database::search($query);
+
+        // Check for errors
+        if (!$result) {
+            die("Query failed: " . Database::$connection->error);
+        }
+
+        // Initialize an array to store vehicles
+        $vehicles = [];
+
+        // Process each row of the result set
+        while ($row = $result->fetch_assoc()) {
+            // If the vehicle ID is not yet in the vehicles array, add it
+            if (!isset($vehicles[$row['id']])) {
+                $vehicles[$row['id']] = [
+                    'id' => $row['id'],
+                    'make' => $row['make'],
+                    'model' => $row['model'],
+                    'price' => $row['price'],
+                    'images' => []
+                ];
+            }
+
+            // Append the image to the images array if available
+            if (!empty($row['image_path'])) {
+                $vehicles[$row['id']]['images'][] = $row['image_path'];
+            }
+        }
+
+        // Return the vehicles array
+        return array_values($vehicles);
+    }
+
+
+
 
     // Update vehicle details
     public function updateVehicle($vehicleId, $make, $model, $year, $type, $fuelType, $transmission, $seatingCapacity, $mileage, $color, $owner, $driver, $images = null)
@@ -203,7 +288,7 @@ class Vehicle
                 $vehicle['images'][] = $imageRow['image_path'];
             }
 
-            return $vehicle; 
+            return $vehicle;
         }
 
         return null; // Vehicle not found

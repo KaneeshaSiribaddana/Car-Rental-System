@@ -1,11 +1,4 @@
 <?php
-
-
-?>
-
-
-
-<?php
 session_start();
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
     header("Location: login.php");
@@ -62,8 +55,8 @@ $drivers = $driverResult->fetch_all(MYSQLI_ASSOC); // Fetch all drivers into an 
         <div class="content  col-10 mb-5 mt-5">
             <div class="container mt-4 mb-5 mt-5">
                 <h2>Your Bookings</h2>
-                <table class="table table-striped">
-                    <thead>
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
                         <tr>
                             <th>Vehicle</th>
                             <th>Start Date</th>

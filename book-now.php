@@ -64,6 +64,8 @@ if ($vehicleId > 0) {
 
         #vehicleCarousel .carousel-inner {
             height: 400px;
+            background-color: #212529;
+            border-radius: 10px;
             /* Set a fixed height */
         }
 
@@ -72,6 +74,8 @@ if ($vehicleId > 0) {
             display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #212529;
+            border-radius: 10px;
         }
 
         #vehicleCarousel .carousel-item img {
@@ -86,7 +90,7 @@ if ($vehicleId > 0) {
     <?php include 'header.php'; ?>
 
     <div class="container centered-container mt-5">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center pt-5">
             <?php if (isset($errorMessage)): ?>
                 <div class="alert alert-danger" role="alert">
                     <?= htmlspecialchars($errorMessage) ?>

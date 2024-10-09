@@ -50,28 +50,33 @@
     <div class="position-sticky">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="vehicle-owner-portal.php">
+                <a class="nav-link" href="admin-portal.php">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="vehicle-owner-payment.php">
+                <a class="nav-link" href="admin-payment.php">
                     <i class="fas fa-dollar-sign"></i> Payments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="manageVehicles.php">
+                <a class="nav-link" href="adminmanageVehicles.php">
                     <i class="fas fa-car"></i> My Vehicles
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="vehicle-owner-drivers.php">
+                <a class="nav-link" href="admin-drivers.php">
                     <i class="fas fa-users"></i> Drivers
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="vehicle-owner-bookings.php">
+                <a class="nav-link" href="admin-bookings.php">
                     <i class="fas fa-calendar-check"></i> Bookings
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="admin-bookings.php">
+                    <i class="fas fa-calendar-check"></i> Inquires
                 </a>
             </li>
         </ul>
