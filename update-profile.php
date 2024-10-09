@@ -14,7 +14,6 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['role'])) {
 $userId = $_SESSION['user_id'];
 $role = $_SESSION['role'];
 
-// Assume you have classes like Customer, VehicleDriver, and VehicleOwner
 $userData = null;
 
 // Fetch the user's profile based on their role

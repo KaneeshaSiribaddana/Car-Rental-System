@@ -6,6 +6,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
 }
 require_once '../models/Vehicle.php';
 
+$owner_id = $_SESSION['user_id'];
+
 // Initialize Database connection (optional, since the Database methods call it)
 Database::setUpConnection();
 
@@ -21,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $seatingCapacity = $_POST['seating_capacity'];
     $mileage = $_POST['mileage'];
     $color = $_POST['color'];
-    $owner = $_POST['owner'];
+    $owner = $owner_id;
     $driver = $_POST['driver'];
 
     // Collect images (optional, may or may not be updated)
@@ -102,12 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // If validation passes, proceed with updating the vehicle and uploading images
     if ($vehicle->updateVehicle($vehicleId, $make, $model, $year, $type, $fuelType, $transmission, $seatingCapacity, $mileage, $color, $owner, $driver, $images)) {
         // Success: Redirect or show a success message
-        header('Location: success.php');
+        header('Location: ManageVehicles.php');
     } else {
         // Failure: Handle the error
         echo "Failed to update vehicle. Please try again.";
     }
 } else {
     // Redirect if not a POST request
-    header('Location: ../EditVehicle.php');
+    header('Location: ../UpdateVehicle.php');
 }

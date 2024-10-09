@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $paymentDate = date("Y-m-d H:i:s");
         $status = 'Paid';
 
-        // Assuming $owner_id is stored in the session
         $owner_id = $_SESSION['user_id'];
 
         // Insert payment into the database using Payment model

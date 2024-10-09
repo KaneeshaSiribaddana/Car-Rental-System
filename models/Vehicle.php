@@ -146,6 +146,18 @@ class Vehicle
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
+    public function adminDeleteVehicleById($id)
+    {
+        $deleteImagesQuery = "DELETE FROM vehicle_images WHERE vehicle_id = '$id'";
+        Database::iud($deleteImagesQuery);
+
+        $deleteBookingQuery = "DELETE FROM bookings WHERE vehicle_id = '$id'";
+        Database::iud($deleteBookingQuery);
+
+        $deleteVehicleQuery = "DELETE FROM vehicles WHERE id = '$id'";
+        return Database::iud($deleteVehicleQuery);
+    }
+
 
     public function getAvailableVehicles($startDate, $endDate)
     {

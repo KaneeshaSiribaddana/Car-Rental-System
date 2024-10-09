@@ -189,6 +189,12 @@ if (isset($_GET['vehicle_id'])) {
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="owner">Vehicle Owner</label>
+                        <input type="text" class="form-control" name="owner" id="owner" value="<?= htmlspecialchars($vehicle['owner']) ?>" disabled>
+                    </div>
+
                     <div class="form-group">
                         <label for="driverOption">Enter with Driver</label>
                         <select class="form-control" name="driver" id="driverOption" required>
@@ -197,8 +203,6 @@ if (isset($_GET['vehicle_id'])) {
                         </select>
                     </div>
                     <div class="row">
-                        <!-- Vehicle details form (Make, Model, Year, etc.) -->
-                        <!-- Similar form fields as in your original code -->
 
                         <div class="form-group">
                             <label for="images">Upload New Images</label>

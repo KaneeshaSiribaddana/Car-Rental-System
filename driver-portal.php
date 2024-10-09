@@ -7,7 +7,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
 
 require_once 'models/config.php';
 
-// Assuming owner_id is stored in the session
+
 $owner_id = $_SESSION['user_id'];
 
 

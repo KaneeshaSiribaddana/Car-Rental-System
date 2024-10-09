@@ -1,13 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
 
 require_once 'models/config.php';
 
-// Assuming owner_id is stored in the session
 $owner_id = $_SESSION['user_id'];
 
 

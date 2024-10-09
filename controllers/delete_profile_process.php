@@ -17,7 +17,7 @@ $role = $_SESSION['role'];
 
 // Function to check if the user is part of any approved booking
 function hasApprovedBooking($userId, $role) {
-    $bookings = Booking::getBookingsByUserIdAndRole($userId, $role); // Assuming a method to fetch bookings by user and role
+    $bookings = Booking::getBookingsByUserIdAndRole($userId, $role);
     
     foreach ($bookings as $booking) {
         if ($booking['status'] === 'approved') {

@@ -170,12 +170,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="owner">Vehicle Owner</label>
-                                    <input type="text" class="form-control" name="owner" id="owner" required>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label for="driverOption">Enter with Driver</label>
                                     <select class="form-control" name="driver" id="driverOption">
                                         <option value="with_driver">With Driver</option>

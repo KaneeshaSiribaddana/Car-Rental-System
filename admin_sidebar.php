@@ -55,27 +55,27 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="admin-payment.php">
+                <a class="nav-link" href="admin-manage-payments.php">
                     <i class="fas fa-dollar-sign"></i> Payments
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="adminmanageVehicles.php">
-                    <i class="fas fa-car"></i> My Vehicles
+                <a class="nav-link" href="admin-manage-vehicles.php">
+                    <i class="fas fa-car"></i> Vehicles
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="admin-drivers.php">
+                <a class="nav-link" href="admin-manage-drivers.php">
                     <i class="fas fa-users"></i> Drivers
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="admin-bookings.php">
+                <a class="nav-link" href="admin-manage-bookings.php">
                     <i class="fas fa-calendar-check"></i> Bookings
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="admin-bookings.php">
+                <a class="nav-link" href="admin-manage-inquiries.php">
                     <i class="fas fa-calendar-check"></i> Inquires
                 </a>
             </li>

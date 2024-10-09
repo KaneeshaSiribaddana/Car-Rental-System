@@ -22,10 +22,10 @@ switch ($role) {
     case 'customer':
         $profileData = Customer::getProfile($userId);
         break;
-    case 'vehicle_driver':
+    case 'driver':
         $profileData = VehicleDriver::getProfile($userId);
         break;
-    case 'vehicle_owner':
+    case 'owner':
         $profileData = VehicleOwner::getProfile($userId);
         break;
     default:

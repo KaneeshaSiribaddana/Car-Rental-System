@@ -45,10 +45,10 @@
     include 'header.php'
     ?>
     <div class="container pt-5">
-        <div class="card">
+        <div class="card pt-5">
             <div class="card-body">
-                <h3 class="text-center mb-4">Login</h3>
-                <form id="loginForm" onsubmit="return validateLoginForm();" action="controllers/login-process.php" method="POST">
+                <h3 class="text-center mb-4">Admin Login</h3>
+                <form id="loginForm" class="pb-5" onsubmit="return validateLoginForm();" action="controllers/admin-login-process.php" method="POST">
                     <div class="form-group">
                         <label for="email">Email Address</label>
                         <input type="email" class="form-control" name="email" id="email" required>
@@ -57,26 +57,8 @@
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <div class="form-group">
-                        <label for="role">Role</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="role" id="driverRole" value="driver" checked>
-                            <label class="form-check-label" for="driverRole">Driver</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="role" id="customerRole" value="customer" required>
-                            <label class="form-check-label" for="customerRole">Customer</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="role" id="ownerRole" value="owner" required>
-                            <label class="form-check-label" for="ownerRole">Vehicle Owner</label>
-                        </div>
-                    </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
                 </form>
-
-                <a href="registrations.php" class="btn btn-secondary w-100 mt-3">Don't have an account? Sign Up</a>
-                <a href="admin-login.php" class="btn btn-secondary w-100 mt-3">Admin?</a>
             </div>
         </div>
     </div>

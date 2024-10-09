@@ -27,7 +27,7 @@ session_start();
                     <a class="nav-link" href="contact.php">Contact</a>
                 </li>
                 <?php
-                if (isset($_SESSION['user_id'])) {
+                if (isset($_SESSION['user_id']) && $_SESSION['role'] != 'admin') {
                 ?>
                     <li class="nav-item">
                         <a class="nav-link" href="customer-bookings.php">My Bookings</a>

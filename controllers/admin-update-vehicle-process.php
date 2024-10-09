@@ -1,19 +1,19 @@
 <?php
 session_start();
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'owner') {
-    header("Location: ../login.php");
+    header("Location: login.php");
     exit();
 }
+require_once '../models/Vehicle.php';
 
 $owner_id = $_SESSION['user_id'];
-
-require_once '../models/Vehicle.php';
 
 // Initialize Database connection (optional, since the Database methods call it)
 Database::setUpConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect form data
+    // Collect vehicle ID and form data
+    $vehicleId = $_POST['vehicle_id'];
     $make = $_POST['vehicle_make'];
     $model = $_POST['vehicle_model'];
     $year = $_POST['vehicle_year'];
@@ -23,12 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $seatingCapacity = $_POST['seating_capacity'];
     $mileage = $_POST['mileage'];
     $color = $_POST['color'];
-    $owner = $owner_id ;
+    $owner = $owner_id;
     $driver = $_POST['driver'];
-    $price = $_POST['price'];
-    $description = $_POST['description'];
 
-    // Collect images
+    // Collect images (optional, may or may not be updated)
     $images = $_FILES['vehicle_images'];
 
     // Initialize an empty errors array
@@ -65,24 +63,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($owner)) {
         $errors[] = "Owner information is required.";
     }
-    if (empty($price)) {
-        $errors[] = "Price is required.";
-    }
-    if (empty($description)) {
-        $errors[] = "Description is required.";
-    }
 
     // Driver selection validation
     if ($driver !== 'with_driver' && $driver !== 'without_driver') {
         $errors[] = "Driver selection is invalid.";
     }
 
-    // Validate images
-    $allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    $maxFileSize = 5 * 1024 * 1024; // 5MB
-    if (empty($images['name'][0])) {
-        $errors[] = "At least one image is required.";
-    } else {
+    // Validate images (if provided)
+    if (!empty($images['name'][0])) {
+        $allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $maxFileSize = 5 * 1024 * 1024; // 5MB
+
         foreach ($images['tmp_name'] as $key => $tmpName) {
             if ($images['size'][$key] > $maxFileSize) {
                 $errors[] = "File " . $images['name'][$key] . " is too large. Maximum size is 5MB.";
@@ -101,18 +92,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // If validation passes, proceed with saving the vehicle and uploading images
+    // Fetch the existing vehicle details from the database
     $vehicle = new Vehicle();
+    $existingVehicle = $vehicle->getVehicleById($vehicleId); // Implement getVehicleById in the Vehicle class to fetch current data
 
-    // Add the vehicle and handle image uploads
-    if ($vehicle->addVehicle($make, $model, $year, $type, $fuelType, $transmission, $seatingCapacity, $mileage, $color, $owner, $driver, $images,$price,$description)) {
+    if (!$existingVehicle) {
+        echo "Vehicle not found.";
+        exit;
+    }
+
+    // If validation passes, proceed with updating the vehicle and uploading images
+    if ($vehicle->updateVehicle($vehicleId, $make, $model, $year, $type, $fuelType, $transmission, $seatingCapacity, $mileage, $color, $owner, $driver, $images)) {
         // Success: Redirect or show a success message
-        header('Location: ../ManageVehicles.php');
+        header('Location: admin-manage-vehicles.php');
     } else {
         // Failure: Handle the error
-        echo "Failed to add vehicle. Please try again.";
+        echo "Failed to update vehicle. Please try again.";
     }
 } else {
     // Redirect if not a POST request
-    header('Location: ../AddVehicle.php');
+    header('Location: ../admin-manage-vehicles.php');
 }

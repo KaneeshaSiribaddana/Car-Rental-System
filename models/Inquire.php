@@ -41,18 +41,27 @@ class Inquire
     }
 
     // Update an inquiry by ID
-    public static function update($id, $name, $email, $phone, $subject, $message)
+    public static function updateInquiry($id, $name, $email, $phone, $subject, $message)
     {
-        $query = "UPDATE inquiries 
-                  SET name = '$name', email = '$email', phone = '$phone', subject = '$subject', message = '$message' 
+        // Prepare the update query
+        $query = "UPDATE inquiries SET 
+                    name = '$name', 
+                    email = '$email', 
+                    phone = '$phone', 
+                    subject = '$subject', 
+                    message = '$message'
                   WHERE id = $id";
+
         return Database::iud($query);
     }
 
     // Delete an inquiry by ID
-    public static function deleteById($id)
+    public static function deleteInquiry($id)
     {
+        // Prepare the delete query
         $query = "DELETE FROM inquiries WHERE id = $id";
+
+        // Execute the delete query using the iud method in the Database class
         return Database::iud($query);
     }
 
